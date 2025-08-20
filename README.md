@@ -176,6 +176,16 @@ To enable debug logging, you can add console.log statements or use a logging lib
 4. Test thoroughly
 5. Submit a pull request
 
+
+## UI
+![Login Page](login_page.png)
+![Task Dashboard](Task_dashboard.png)
+![add_new_task](add_new_task.png)
+![web_app_presentation (MP4)](Web_App_presentation.mp4)
+
+
+
+
 ## License
 
 This project is open source and available under the [MIT License](LICENSE). 
