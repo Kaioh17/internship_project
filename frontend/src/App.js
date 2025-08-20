@@ -1,24 +1,53 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import { AuthProvider } from './context/AuthContext';
+import { TaskProvider } from './context/TaskContext';
+import Navigation from './components/Navigation';
+import Login from './components/Login';
+import Register from './components/Register';
+import TaskList from './components/TaskList';
+import ProtectedRoute from './components/ProtectedRoute';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#1976d2',
+    },
+    secondary: {
+      main: '#dc004e',
+    },
+  },
+});
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <AuthProvider>
+        <TaskProvider>
+          <Router>
+            <div className="App">
+              <Navigation />
+              <Routes>
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route
+                  path="/tasks"
+                  element={
+                    <ProtectedRoute>
+                      <TaskList />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route path="/" element={<Navigate to="/tasks" replace />} />
+              </Routes>
+            </div>
+          </Router>
+        </TaskProvider>
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
 
